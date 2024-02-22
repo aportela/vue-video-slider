@@ -14,7 +14,12 @@ interface Props {
   showDebugData?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  showNativeVideoControls: false,
+  hideSlider: false,
+  seekOnMouseMove: true,
+  showDebugData: false
+})
 
 const emit = defineEmits<{
   (e: 'loaded', value: boolean): void
