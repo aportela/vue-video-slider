@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ref, defineProps, watch } from 'vue'
+import { ref, defineProps, withDefaults, defineEmits, watch } from 'vue'
 import type { Ref } from 'vue'
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   showNativeVideoControls: false,
   hideSlider: false,
-  seekOnMouseMove: true,
+  seekOnMouseMove: false,
   showDebugData: false
 })
 
