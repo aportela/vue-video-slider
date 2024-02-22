@@ -39,11 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: actions/checkout@v3
       # 👇 Get the dist folder
       - name: deploy build
         uses: actions/download-artifact@v3
         with:
           name: app-build
-          path: ./dist
       - run: ls dist
