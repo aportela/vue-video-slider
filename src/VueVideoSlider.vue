@@ -4,8 +4,6 @@ import { ref, defineProps, watch } from 'vue'
 import type { Ref } from 'vue'
 
 interface Props {
-  width: number,
-  height: number,
   fps: number,
   poster?: string,
   streamSource: string,
