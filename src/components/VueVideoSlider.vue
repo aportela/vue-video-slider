@@ -1,7 +1,9 @@
 <script setup lang="ts">
 
-import { ref, defineProps, withDefaults, defineEmits, watch } from 'vue'
+import { ref, defineProps, defineEmits, watch } from 'vue'
 import type { Ref } from 'vue'
+
+const props = defineProps<Props>()
 
 interface Props {
   width: number,
@@ -16,20 +18,13 @@ interface Props {
   showDebugData?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  showNativeVideoControls: false,
-  hideSlider: false,
-  seekOnMouseMove: true,
-  showDebugData: true
-})
-
 const emit = defineEmits<{
   (e: 'loaded', value: boolean): void
   (e: 'seeking', value: boolean): void
   (e: 'seeked', value: boolean): void
 }>()
 
-const videoRef = ref(null)
+const videoRef = ref<HTMLVideoElement | null>(null)
 const loadComplete: Ref<boolean> = ref(false)
 const duration: Ref<number> = ref(0)
 const totalFrames: Ref<number> = ref(0)
@@ -40,14 +35,16 @@ const defaultFPS = 25
 
 watch(currentFrameIndex, (newValue: number) => {
   if (!seeking.value) {
-    currentTime.value = (
+    currentTime.value = Number((
       newValue / (props.fps || defaultFPS)
-    ).toPrecision(3)
-    videoRef.value.currentTime = currentTime.value
+    ).toPrecision(3))
+    if (videoRef && videoRef.value) {
+      videoRef.value.currentTime = currentTime.value
+    }
   }
 })
 
-function onVideoLoaded(e: { target: { duration: any } }) {
+function onVideoLoaded(e: any) {
   duration.value = e.target.duration;
   totalFrames.value = Math.ceil(
     duration.value * (props.fps || defaultFPS)
@@ -56,17 +53,17 @@ function onVideoLoaded(e: { target: { duration: any } }) {
   emit('loaded', true)
 }
 
-function onVideoSeeking(e: any) {
+function onVideoSeeking() {
   seeking.value = true
   emit('seeking', true)
 }
 
-function onVideoSeeked(e: any) {
+function onVideoSeeked() {
   seeking.value = false
   emit('seeked', true)
 }
 
-function onMouseMoveOverVideo(e: { target: { getBoundingClientRect: () => any }; clientX: number }) {
+function onMouseMoveOverVideo(e: any) {
   if (props.seekOnMouseMove) {
     const bounds = e.target.getBoundingClientRect()
     const x = e.clientX - bounds.left
@@ -83,7 +80,7 @@ function onMouseMoveOverVideo(e: { target: { getBoundingClientRect: () => any };
     <video style="style" ref="videoRef" autobuffer preload="auto" :controls="showNativeVideoControls"
       @canplaythrough.once="onVideoLoaded" @seeking="onVideoSeeking" @seeked="onVideoSeeked"
       @mousemove="onMouseMoveOverVideo">
-      <source :src="streamSource" :type="streamMimeType">
+      <source :src="streamSource" :type="streamMimeType" style="style">
     </video>
     <input style="width: 100%;" type="range" min="0" :max="totalFrames" step="1" v-model="currentFrameIndex"
       v-if="!hideSlider" :disable="!loadComplete">
