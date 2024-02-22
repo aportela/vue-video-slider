@@ -1,5 +1,7 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { defineCustomElement } from 'vue'
 
-createApp(App).mount('#app')
+import vueVideoSlider from './components/VueVideoSlider.vue'
+
+const vueVideoSliderComponent = defineCustomElement(vueVideoSlider);
+
+customElements.define('vue-video-slider', vueVideoSliderComponent);
