@@ -1,11 +1,14 @@
 <script setup lang="ts">
 
-import { ref, defineProps, defineEmits, watch } from 'vue'
+import { ref, defineProps, watch } from 'vue'
 import type { Ref } from 'vue'
 
-const props = defineProps<Props>()
-
 interface Props {
+  kkk: {
+    type: boolean,
+    default: true,
+    required: false
+  },
   width: number,
   height: number,
   fps: number,
@@ -16,6 +19,18 @@ interface Props {
   hideSlider?: boolean,
   seekOnMouseMove?: boolean,
   showDebugData?: boolean
+}
+
+const props = defineProps<Props>()
+
+if (props.kkk) {
+  console.log("SI")
+  console.log(props.kkk)
+  console.log(props)
+} else {
+  console.log("NO existe kkk")
+  console.log(props.kkk)
+  console.log(props)
 }
 
 const emit = defineEmits<{
@@ -80,17 +95,15 @@ function onMouseMoveOverVideo(e: any) {
     <video style="style" ref="videoRef" autobuffer preload="auto" :controls="showNativeVideoControls"
       @canplaythrough.once="onVideoLoaded" @seeking="onVideoSeeking" @seeked="onVideoSeeked"
       @mousemove="onMouseMoveOverVideo">
-      <source :src="streamSource" :type="streamMimeType" style="style">
+      <source :src="streamSource" :type="streamMimeType">
     </video>
     <input style="width: 100%;" type="range" min="0" :max="totalFrames" step="1" v-model="currentFrameIndex"
       v-if="!hideSlider" :disable="!loadComplete">
     <div v-if="showDebugData">
-      <slot name="debug" v-bind:currentFrameIndex="currentFrameIndex" v-bind:totalFrames="totalFrames"
-        v-bind:fps="fps || defaultFPS" v-bind:seeking="seeking" v-bind:currentTime="currentTime"
-        v-bind:duration="duration">
+      <slot name="debug" :currentFrameIndex="currentFrameIndex" :totalFrames="totalFrames" :fps="fps || defaultFPS"
+        :seeking="seeking" :currentTime="currentTime" :duration="duration">
         <p>Frame {{ currentFrameIndex }}/{{ totalFrames }} frames (video fps: {{ fps || defaultFPS }}) <span
-            class="has-text-white has-background-black" v-show="seeking">[ => SEEKING <= ]</span>
-        </p>
+            class="has-text-white has-background-black" v-show="seeking">[ =&gt; SEEKING &lt;= ]</span> </p>
         <p>Current time / Duration: [{{ currentTime }} / {{ duration }}] seconds</p>
       </slot>
     </div>
