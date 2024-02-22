@@ -2,12 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue + TS</title>
+    <title>Vue video slider component</title>
   </head>
   <body>
-    <div id="app"></div>
+    <!-- original mp4 credits https://commons.wikimedia.org/wiki/File:Rotating_earth_animated.gif -->
+    <div style="width: 480px; margin: 64px auto;">
+      <vue-video-slider
+        style="width: 480px; height: 480px;"
+        width="480"
+        height="480"
+        fps="25"
+        :show-debug-data="false"
+        :show-native-video-controls="false"
+        :hide-slider="false"
+        :seek-on-mouse-move="true"
+        stream-source="rotating-earth-animated.mp4"
+        stream-mime-type="video/mp4"
+      ></vue-video-slider>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
