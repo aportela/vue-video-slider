@@ -4,11 +4,6 @@ import { ref, defineProps, watch } from 'vue'
 import type { Ref } from 'vue'
 
 interface Props {
-  kkk: {
-    type: boolean,
-    default: true,
-    required: false
-  },
   width: number,
   height: number,
   fps: number,
@@ -22,16 +17,6 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
-if (props.kkk) {
-  console.log("SI")
-  console.log(props.kkk)
-  console.log(props)
-} else {
-  console.log("NO existe kkk")
-  console.log(props.kkk)
-  console.log(props)
-}
 
 const emit = defineEmits<{
   (e: 'loaded', value: boolean): void
