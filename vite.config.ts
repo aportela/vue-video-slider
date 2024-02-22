@@ -5,14 +5,12 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   build: {
-    /*
     rollupOptions: {
       output: {
-        entryFileNames: `[name].js`,
+        entryFileNames: `vue-video-slider.js`,
         chunkFileNames: `[name].js`,
         assetFileNames: `[name].[ext]`
       }
     }
-    */
   }
 })
