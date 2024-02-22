@@ -4,10 +4,10 @@ import { ref, defineProps, watch } from 'vue'
 import type { Ref } from 'vue'
 
 interface Props {
-  fps: number,
   poster?: string,
   streamSource: string,
   streamMimeType: string,
+  streamFps: number,
   showNativeVideoControls?: boolean,
   hideSlider?: boolean,
   seekOnMouseMove?: boolean,
@@ -34,7 +34,7 @@ const defaultFPS = 25
 watch(currentFrameIndex, (newValue: number) => {
   if (!seeking.value) {
     currentTime.value = Number((
-      newValue / (props.fps || defaultFPS)
+      newValue / (props.streamFps || defaultFPS)
     ).toPrecision(3))
     if (videoRef && videoRef.value) {
       videoRef.value.currentTime = currentTime.value
@@ -45,7 +45,7 @@ watch(currentFrameIndex, (newValue: number) => {
 function onVideoLoaded(e: any) {
   duration.value = e.target.duration;
   totalFrames.value = Math.ceil(
-    duration.value * (props.fps || defaultFPS)
+    duration.value * (props.streamFps || defaultFPS)
   );
   loadComplete.value = true
   emit('loaded', true)
@@ -83,9 +83,9 @@ function onMouseMoveOverVideo(e: any) {
     <input style="width: 100%;" type="range" min="0" :max="totalFrames" step="1" v-model="currentFrameIndex"
       v-if="!hideSlider" :disable="!loadComplete">
     <div v-if="showDebugData">
-      <slot name="debug" :currentFrameIndex="currentFrameIndex" :totalFrames="totalFrames" :fps="fps || defaultFPS"
+      <slot name="debug" :currentFrameIndex="currentFrameIndex" :totalFrames="totalFrames" :fps="streamFps || defaultFPS"
         :seeking="seeking" :currentTime="currentTime" :duration="duration">
-        <p>Frame {{ currentFrameIndex }}/{{ totalFrames }} frames (video fps: {{ fps || defaultFPS }}) <span
+        <p>Frame {{ currentFrameIndex }}/{{ totalFrames }} frames (video fps: {{ streamFps || defaultFPS }}) <span
             class="has-text-white has-background-black" v-show="seeking">[ =&gt; SEEKING &lt;= ]</span> </p>
         <p>Current time / Duration: [{{ currentTime }} / {{ duration }}] seconds</p>
       </slot>

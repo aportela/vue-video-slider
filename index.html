@@ -10,13 +10,13 @@
     <div style="width: 480px; margin: 64px auto;">
       <vue-video-slider
         style="width: 480px; height: 480px;"
-        fps="25"
+        stream-source="rotating-earth-animated.mp4"
+        stream-mime-type="video/mp4"
+        stream-fps="25"
         :show-debug-data="true"
         :show-native-video-controls="false"
         :hide-slider="false"
         :seek-on-mouse-move="true"
-        stream-source="rotating-earth-animated.mp4"
-        stream-mime-type="video/mp4"
       ></vue-video-slider>
     </div>
     <script type="module" src="/src/main.ts"></script>
