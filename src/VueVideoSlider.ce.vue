@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ref, defineProps, withDefaults, defineEmits, watch } from 'vue'
+import { ref, withDefaults, watch } from 'vue'
 import type { Ref } from 'vue'
 
 interface Props {

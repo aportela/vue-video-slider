@@ -1,7 +1,7 @@
 import { defineCustomElement } from 'vue'
 
-import vueVideoSlider from './VueVideoSlider.vue'
+import wcVueVideoSlider from './VueVideoSlider.ce.vue'
 
-const vueVideoSliderComponent = defineCustomElement(vueVideoSlider);
+const wcVueVideoSliderComponent = defineCustomElement(wcVueVideoSlider);
 
-customElements.define('vue-video-slider', vueVideoSliderComponent)
+customElements.define('wc-vue-video-slider', wcVueVideoSliderComponent)

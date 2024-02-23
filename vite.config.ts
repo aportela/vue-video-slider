@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        entryFileNames: `vue-video-slider.min.js`,
+        entryFileNames: `wc-vue-video-slider.min.js`,
         chunkFileNames: `[name].js`,
         assetFileNames: `[name].[ext]`
       }
