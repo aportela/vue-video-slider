@@ -1,40 +1,42 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue video slider web component</title>
-  </head>
-  <body>
-    <!-- original mp4 credits https://commons.wikimedia.org/wiki/File:Rotating_earth_animated.gif -->
 
-    <!-- no scale, complete range -->
-    <div style="width: 480px; margin: 64px auto;">
-      <wc-vue-video-slider
-        width="480"
-        height="480"
-        stream-source="blender-demo-cube-diorama.mp4"
-        stream-mime-type="video/mp4"
-        stream-fps="25"
-        seek-on-mouse-move
-        show-debug-data
-      ></wc-vue-video-slider>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue video slider web component</title>
+  <style>
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
 
-    <!-- video scaled, custom range -->
-    <div style="width: 300px; margin: 64px auto;">
-      <wc-vue-video-slider
-        width="300"
-        height="300"
-        stream-source="blender-demo-cube-diorama.mp4"
-        stream-mime-type="video/mp4"
-        stream-fps="25"
-        stream-range-from="6"
-        stream-range-to="12"
-        seek-on-mouse-move
-        show-debug-data
-      ></wc-vue-video-slider>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<body>
+  <!-- mp4 credits: rendered from "Cube Diorama" (https://www.blender.org/download/demo-files/) -->
+
+  <!-- no debug, no scale, complete range, video seeking on mouse move over -->
+  <h2>no debug, no scale, complete range, video seeking on mouse move over</h2>
+  <div style="width: 480px; margin: 64px auto;">
+    <wc-vue-video-slider width="480" height="480" stream-source="blender-demo-cube-diorama.mp4"
+      stream-mime-type="video/mp4" stream-fps="25" seek-on-mouse-move></wc-vue-video-slider>
+  </div>
+
+  <h2>debug, video scaled, complete range</h2>
+  <!-- debug, video scaled, complete range -->
+  <div style="width: 400px; margin: 64px auto;">
+    <wc-vue-video-slider width="400" height="400" stream-source="blender-demo-cube-diorama.mp4"
+      stream-mime-type="video/mp4" stream-fps="25" show-debug-data></wc-vue-video-slider>
+  </div>
+
+  <h2>debug, video scaled, custom range</h2>
+  <!-- debug, video scaled, custom range -->
+  <div style="width: 300px; margin: 64px auto;">
+    <wc-vue-video-slider width="300" height="300" stream-source="blender-demo-cube-diorama.mp4"
+      stream-mime-type="video/mp4" stream-fps="25" stream-range-from="6" stream-range-to="12"
+      show-debug-data></wc-vue-video-slider>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
