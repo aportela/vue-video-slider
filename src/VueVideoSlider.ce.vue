@@ -7,23 +7,21 @@
     </video>
     <input style="width: 100%" type="range" :min="range.fromFrame" :max="range.toFrame" step="1"
       v-model="currentFrameIndex" v-if="!hideSlider" :disable="!loadComplete">
-    <div v-if="showDebugData">
-      <slot name="debug" :currentFrameIndex="currentFrameIndex" :currentTime="currentTime" :videoData="videoData"
-        :range="range" :seeking="seeking">
-        <p>Resolution: {{ width }}x{{ height }} <span v-if="width != videoData.width || height != videoData.height">(video
-            scaled from: {{ videoData.width }}x{{
-              videoData.height }})</span> ({{ videoData.fps }} fps)</p>
-        <p>Frame: {{ currentFrameIndex - range.fromFrame }} / {{ range.toFrame - range.fromFrame }}
-          <span v-if="range.custom">(video real frame: {{ currentFrameIndex }} / {{ videoData.totalFrames }})</span>
-          <span class="has-text-white has-background-black" v-show="seeking">(SEEKING)</span>
-        </p>
-        <p>Timeline second: {{ (currentTime - range.fromSecond).toPrecision(3) }} / {{ (range.toSecond -
-          range.fromSecond).toPrecision(3) }}
-          <span v-if="range.custom">(video real timeline second: {{ currentTime }} / {{ videoData.duration.toPrecision(3)
-          }})</span>
-        </p>
-      </slot>
-    </div>
+    <slot name="debug" :currentFrameIndex="currentFrameIndex" :currentTime="currentTime" :videoData="videoData"
+      :range="range" :seeking="seeking" v-if="showDebugData">
+      <p>Resolution: {{ width }}x{{ height }} <span v-if="width != videoData.width || height != videoData.height">(video
+          scaled from: {{ videoData.width }}x{{
+            videoData.height }})</span> ({{ videoData.fps }} fps)</p>
+      <p>Frame: {{ currentFrameIndex - range.fromFrame }} / {{ range.toFrame - range.fromFrame }}
+        <span v-if="range.custom">(video real frame: {{ currentFrameIndex }} / {{ videoData.totalFrames }})</span>
+        <span class="has-text-white has-background-black" v-show="seeking">(SEEKING)</span>
+      </p>
+      <p>Timeline second: {{ (currentTime - range.fromSecond).toPrecision(3) }} / {{ (range.toSecond -
+        range.fromSecond).toPrecision(3) }}
+        <span v-if="range.custom">(video real timeline second: {{ currentTime }} / {{ videoData.duration.toPrecision(3)
+        }})</span>
+      </p>
+    </slot>
   </div>
 </template>
 
