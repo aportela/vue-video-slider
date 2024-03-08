@@ -96,3 +96,5 @@ $ npm run build
 **showDebugData**: Boolean (optional)
 
     Description: Show extra debug data (default = false)
+
+![Node.js CI](https://github.com/aportela/wc-vue-video-slider/actions/workflows/node.js.yml/badge.svg)
